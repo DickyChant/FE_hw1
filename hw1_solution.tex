@@ -1,0 +1,147 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\newtheoremstyle{break}%
+    {}{}%
+    {\itshape}{}%
+    {\bfseries}{}% % Note that final punctuation is omitted.
+    {\newline}{}
+\theoremstyle{break}
+\newtheorem*{definition}{Definition}
+\newtheorem*{proof_break}{Proof.}
+\lstset{
+    numbers=left, 
+    numberstyle= \tiny, 
+    keywordstyle= \color{ blue!70},
+    commentstyle= \color{red!50!green!50!blue!50}, 
+    frame=shadowbox, % 阴影效果
+    rulesepcolor= \color{ red!20!green!20!blue!20} ,
+    escapeinside=``, % 英文分号中可写入中文
+    xleftmargin=2em,xrightmargin=2em, aboveskip=1em,
+    framexleftmargin=2em
+} 
+\begin{document}
+    \title{HW1}
+    \author{Sitian Qian 1600011388}
+    \maketitle
+    \section{Problem 1}
+    \subsection{Subproblem 1}
+    The density function of $r_t$ is:
+    $$f(r_t)=\frac{e^{-\frac{\left(r_t-\mu _t\right){}^2}{2 \sigma _t^2}}}{\sqrt{2 \pi } \sigma _t}$$
+    \subsection{Subproblem 2}
+    The relation ship between $R_t$ and $r_t$ is:
+    $$R_t=\exp{(r_t)}-1$$
+    \subsection{Subproblem 3}
+    The expectation of $R_t$ is:
+    \begin{align*}
+        \mathbb{E}(R_t)&=\mathbb{E}[\exp(r_t)-1]\\
+        &=\int_{-\infty}^{+\infty}(\exp(r_t)-1)f(r_t)dr_t\\
+        &=e^{\mu _t+\frac{\sigma _t^2}{2}}-1
+    \end{align*}
+    \subsection{Subproblem 4}
+    The variance of $R_t$ is:
+    \begin{align*}
+        Var(R_t)&=\mathbb{E}(R_t^2)-(\mathbb{E}R_t)^2\\
+        &=\int_{-\infty}^{+\infty}(\exp(r_t)-1)^2f(r_t)dr_t-(e^{\mu _t+\frac{\sigma _t^2}{2}}-1)^2\\
+        &=-2 e^{\mu _t+\frac{\sigma _t^2}{2}}+e^{2 \left(\mu _t+\sigma _t^2\right)}+1-(-2 e^{\mu _t+\frac{\sigma _t^2}{2}}+e^{2 \mu _t+\sigma _t^2}+1)\\
+        &=e^{2 \left(\mu _t+\sigma _t^2\right)}-e^{2 \mu _t+\sigma _t^2}
+    \end{align*}
+    \subsection{Subproblem 5}
+    Now using $h_Y$ to express the density of $Y$. Since function $g$ is strictly increasing and continuously differentiable. If $a<X<b$, then $g(a)<Y<g(b)$, their probability should be the same. Namely we have:
+    $$\int_a^bf_X(x)dx=\int_{g(a)}^{g(b)}h_Y(y)dy$$
+    Recall that $y=g(x)$, then $dy=g'(x)dx$. So:
+    \begin{align*}
+        \int_a^bf_X(x)dx&=\int_{g(a)}^{g(b)}h_Y(y)dy\\
+        &=\int_a^bh_Y(g(x))g'(x)dx
+    \end{align*}
+    Since this relationship should be valid for all $-\infty<a<b<+\infty$, we have:
+    $$f_X(x)=h_Y(g(x))g'(x)$$
+    Which gives that:
+    $$h_Y(y)=\frac{f_X(g^{-1}(y))}{g'(g^{-1}(y))}$$
+    \subsection{Subproblem 6}
+    Using the relationship of Subproblem 5, we have:
+    \begin{align*}
+        h(R_t)&=\frac{f(\ln{(R_t+1)})}{\exp(\ln{(R_t+1)})}\\
+        &=\frac{e^{-\frac{\left(\ln{(R_t+1)}-\mu _t\right){}^2}{2 \sigma _t^2}}}{{(R_t+1)}\sqrt{2 \pi } \sigma _t}
+    \end{align*}
+    \section{Problem 2}
+    \subsection{Subproblem 1}
+    The expectation of $\hat{\mu}_n$ is:
+    \begin{align*}
+        \mathbb{E}(\hat{\mu}_n)&=\mathbb{E}(\sum_{i=1}^n{\frac{X_i}{n}})\\
+        &=\sum_{i=1}^n{\frac{\mu}{n}}\\
+        &=\mu
+    \end{align*}
+    So $\hat{\mu}_n$ is an unbiased estimator.
+    \subsection{Subproblem 2}
+    The variance of $\hat{\mu}_n$ is:
+    \begin{align*}
+        Var(\hat{\mu}_n)&=Var(\sum_{i=1}^n{\frac{X_i}{n}})\\
+        &=\sum_{i=1}^n{\frac{\sigma^2}{n^2}}\\
+        &=\frac{\sigma^2}{n}
+    \end{align*}
+    If $n\to \infty$, $Var(\hat{\mu}_n)\to 0$.
+    \subsection{Subproblem 3}
+    The definition of convergence in probability is:
+    \begin{definition}[Convergence in probability]
+        For a random variable series $\{X_n\}$, if $\forall \epsilon > 0$,
+         $\lim_{n\to\infty}\mathbb{P}(|X-X_n|\geq\epsilon)=0$.
+    \end{definition}
+    \subsection{Subproblem 4}
+    \begin{proof_break}
+        \begin{align*}
+            Y_n\to_{L^2}Y\\
+            \Leftrightarrow\lim_{n\to\infty}\mathbb{E}(Y_n-Y)^2&=0\\
+        \end{align*}
+        Therefore:
+        \begin{align*} 
+            0&<\lim_{n\to\infty}Var(Y_n-Y)\\
+            &=\lim_{n\to\infty}\mathbb{E}(Y_n-Y)^2-\lim_{n\to\infty}(\mathbb{E}(Y_n-Y))^2\\
+            &<\lim_{n\to\infty}\mathbb{E}(Y_n-Y)^2\\
+            &=0
+        \end{align*}
+        So:
+        \begin{align*}
+            \lim_{n\to\infty}Var(Y_n-Y)&=0\\
+            \lim_{n\to\infty}(\mathbb{E}(Y_n-Y))&=0
+        \end{align*}
+        According to the Chebyshev inequality:
+        \begin{align*}
+            \forall \epsilon > 0,&\\
+            \lim_{n\to\infty}\mathbb{P}(|Y_n-Y-0|\geq\epsilon)&\leq\frac{\lim_{n\to\infty}Var(Y_n-Y)}{\epsilon^2}\\
+            &=0
+        \end{align*}
+        Since probability should be not minus,
+        $$\forall \epsilon > 0,
+        \lim_{n\to\infty}\mathbb{P}(|Y_n-Y|\geq\epsilon)=0$$
+        Namely, $Y_n\to_{p}Y$.
+    \end{proof_break}
+    \subsection{Subproblem 5}
+    \begin{proof_break}
+        
+    \end{proof_break}
+    \section{Problem 3}
+    \subsection{Subproblem 1}
+    \paragraph{Output}\par
+    The output of given code is:
+    \begin{lstlisting}
+        [2,5,8,11]
+    \end{lstlisting}
+    \paragraph{Explanation}\par
+    Variable "a" is a python list contains integers from 1 to 13, and the python function "print()" will print the input parameter to the console/terminal/jupyter cell output/... \par
+    The input parameter, "a[1:12:3]", is indeed a python list,
+    whose members is taken from "a". The way of taking is based on the index, "[1:12:3]". It means python will take members from "a[1]" to "a[12]", the 2nd to the 13th member of "a", with a step of 3. \par
+    To sum up, "a[1:12:3]" is a list containing "a[1],a[4],a[7],a[10]", namely "2,5,8,11". Last but not least, when you use "print()" to print a python list, the output have "[]" on the sides, and members are separated with ",".
+    \subsection{Subproblem 2}
+    \paragraph{output}\par
+    The output of given code is:
+    \begin{lstlisting}
+        0
+    \end{lstlisting}
+    \paragraph{Explanation}\par
+    Since variable "luck" is set to be 0, then the condition of the if sentence is true. So python will only set "ret" to be -2. Since the value of "total" has not been changed, when you print "total" you will get 0 as output.
+\end{document} 
